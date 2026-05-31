@@ -18,6 +18,8 @@ Core views include:
 - Frozen FPM ablation deltas.
 - Per-run tables with the key metrics needed for reporting.
 
+<img width="3022" height="1886" alt="image" src="https://github.com/user-attachments/assets/508b7610-67da-42f4-acdf-d3deedd6108f" />
+
 ## Included Dataset
 
 This repository includes one full-validation log set:
