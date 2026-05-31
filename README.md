@@ -1,40 +1,65 @@
 # AIDEEN Live Lab
 
-Standalone dashboard for AIDEEN experiment logs and future live telemetry.
+Desktop dashboard for inspecting AIDEEN training logs, full-validation results, FPM ablations, and per-run diagnostics.
 
-## Current capabilities
+## What It Does
 
-- Import AIDEEN `.log` files.
-- Parse summaries and diagnostics.
-- Persist runs in IndexedDB.
-- Compare runs in tables.
-- Visualize metrics with charts.
-- Export JSON/CSV.
+AIDEEN Live Lab turns raw `.log` files into a local, explorable experiment dashboard. It is built for comparing FPM and no-FPM runs, checking validation behavior over time, and keeping the important publication metrics visible without digging through terminal output.
 
-## Not implemented yet
+Core views include:
 
-- Direct model connection.
-- WebSocket live telemetry.
-- GPU-native charts.
-- Runtime control sliders connected to AIDEEN.
+- Validation loss by step.
+- Perplexity proxy by step.
+- Training loss separated from validation loss.
+- Gate/control traces for FPM behavior.
+- Signal RMS diagnostics.
+- Retrieval similarity and consolidation metrics.
+- Full-validation comparisons across seeds and configs.
+- Frozen FPM ablation deltas.
+- Per-run tables with the key metrics needed for reporting.
 
-## Run
+## Included Dataset
+
+This repository includes one full-validation log set:
+
+```text
+data/logs/block_deq_train_fullval_16000
+```
+
+It contains 12 runs across seeds and configurations:
+
+- `utility_aligned_delta`
+- `mix0.25`
+- `mix0.50`
+- `no_fpm`
+
+## Tech Stack
+
+- Tauri desktop app.
+- React + TypeScript frontend.
+- Rust parser and local persistence layer.
+- Recharts-based visualizations.
+- Local-first storage; no remote service is required.
+
+## Run Locally
 
 ```bash
 npm install
+npm run tauri dev
+```
+
+For the frontend-only Vite view:
+
+```bash
 npm run dev
 ```
 
-## Build (Tauri desktop app)
+## Build
 
 ```bash
 npm run tauri build
 ```
 
-## Future phases
+## Notes
 
-- **UI-1:** Improve offline analytics and ranking.
-- **UI-2:** Tail running log files.
-- **UI-3:** Consume structured JSONL per-step metrics.
-- **UI-4:** Connect to AIDEEN through WebSocket/IPC.
-- **UI-5:** GPU-native visualization with wgpu.
+The app is focused on offline experiment inspection. It does not require a live model connection, and the included logs can be imported directly from the app using the folder importer.
