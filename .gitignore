@@ -17,6 +17,7 @@ src-tauri/target/
 
 # Logs and temporary files
 *.log
+!data/logs/**/*.log
 *.tmp
 *.temp
 

@@ -1,0 +1,618 @@
+warning: unused import: `loss`
+  --> aideen-training-lab/src/trainer.rs:20:13
+   |
+20 | use crate::{loss, optimizer::Adam};
+   |             ^^^^
+   |
+   = note: `#[warn(unused_imports)]` on by default
+
+warning: variable does not need to be mutable
+    --> aideen-training-lab/src/trainer.rs:5698:21
+     |
+5698 |                 let mut gpu_stats = {
+     |                     ----^^^^^^^^^
+     |                     |
+     |                     help: remove this `mut`
+     |
+     = note: `#[warn(unused_mut)]` on by default
+
+warning: struct `FpmHealthMetrics` is never constructed
+  --> aideen-training-lab/src/trainer.rs:88:8
+   |
+88 | struct FpmHealthMetrics {
+   |        ^^^^^^^^^^^^^^^^
+   |
+   = note: `FpmHealthMetrics` has a derived impl for the trait `Default`, but this is intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` on by default
+
+warning: enum `SolveStatus` is never used
+   --> aideen-training-lab/src/trainer.rs:106:6
+    |
+106 | enum SolveStatus {
+    |      ^^^^^^^^^^^
+
+warning: method `label` is never used
+   --> aideen-training-lab/src/trainer.rs:114:8
+    |
+113 | impl SolveStatus {
+    | ---------------- method in this implementation
+114 |     fn label(self) -> &'static str {
+    |        ^^^^^
+
+warning: multiple fields are never read
+   --> aideen-training-lab/src/trainer.rs:196:5
+    |
+139 | pub struct Trainer {
+    |            ------- fields in this struct
+...
+196 |     grad_accum_counter: u32, // steps accumulated so far in the current window
+    |     ^^^^^^^^^^^^^^^^^^
+...
+199 |     debug_last_time: Option<std::time::Instant>,
+    |     ^^^^^^^^^^^^^^^
+200 |     debug_tokens_accum: u32, // tokens processed since last GPU-DEBUG print
+    |     ^^^^^^^^^^^^^^^^^^
+...
+205 |     cached_debug_buf: Vec<f32>,
+    |     ^^^^^^^^^^^^^^^^
+206 |     cached_debug_gen: u64,
+    |     ^^^^^^^^^^^^^^^^
+207 |     invalid_eval_debug_gen: u64,
+    |     ^^^^^^^^^^^^^^^^^^^^^^
+...
+210 |     fpm_alpha_m_current: f32,
+    |     ^^^^^^^^^^^^^^^^^^^
+211 |     fpm_tau_current: f32,
+    |     ^^^^^^^^^^^^^^^
+212 |     fpm_err_h_window: VecDeque<f32>,
+    |     ^^^^^^^^^^^^^^^^
+213 |     fpm_last_err_h_avg: f32,
+    |     ^^^^^^^^^^^^^^^^^^
+...
+219 |     cfg_solve_control_every: usize, // AIDEEN_SOLVE_CONTROL_EVERY
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+220 |     pub cfg_loss_readback_every: usize, // AIDEEN_LOSS_READBACK_EVERY
+221 |     cfg_gpu_step_fence_every: usize, // AIDEEN_GPU_STEP_FENCE_EVERY
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^
+222 |     cfg_grad_accum: u32,           // AIDEEN_GRAD_ACCUM
+    |     ^^^^^^^^^^^^^^
+...
+226 |     cfg_wv_debug: bool,            // AIDEEN_DEQ_WV_DEBUG
+    |     ^^^^^^^^^^^^
+227 |     cfg_ssm_debug: bool,           // AIDEEN_SSM_DEBUG
+    |     ^^^^^^^^^^^^^
+...
+230 |     cfg_system_cost_audit: bool,   // AIDEEN_SYSTEM_COST_AUDIT
+    |     ^^^^^^^^^^^^^^^^^^^^^
+231 |     cfg_system_cost_wait: bool,    // AIDEEN_SYSTEM_COST_WAIT
+    |     ^^^^^^^^^^^^^^^^^^^^
+232 |     cfg_slot_path_audit: bool,     // AIDEEN_SLOT_PATH_AUDIT
+    |     ^^^^^^^^^^^^^^^^^^^
+233 |     cfg_force_renorm: bool,        // AIDEEN_DEQ_FORCE_RENORM
+    |     ^^^^^^^^^^^^^^^^
+234 |     cfg_lm_force_cpu_dldh: bool,   // AIDEEN_LM_FORCE_CPU_DLDH
+    |     ^^^^^^^^^^^^^^^^^^^^^
+235 |     cfg_lm_dldh_parity: bool,      // AIDEEN_LM_DLDH_PARITY
+    |     ^^^^^^^^^^^^^^^^^^
+236 |     cfg_lm_exact_cpu: bool,        // AIDEEN_LM_EXACT_CPU
+    |     ^^^^^^^^^^^^^^^^
+237 |     cfg_lm_exact_cpu_every: u32,   // AIDEEN_LM_EXACT_CPU_EVERY
+    |     ^^^^^^^^^^^^^^^^^^^^^^
+238 |     cfg_exact_timing: bool,        // AIDEEN_EXACT_TIMING
+    |     ^^^^^^^^^^^^^^^^
+239 |     cfg_exact_gpu_w_update: bool,  // AIDEEN_LM_EXACT_GPU_W_UPDATE
+    |     ^^^^^^^^^^^^^^^^^^^^^^
+...
+247 |     cfg_assoc_lr_mult: f32,        // AIDEEN_ASSOC_LR_MULT
+    |     ^^^^^^^^^^^^^^^^^
+248 |     cfg_assoc_event_lr_mult: f32,  // AIDEEN_ASSOC_EVENT_LR_MULT
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+249 |     cfg_assoc_alpha_lr_mult: f32,  // AIDEEN_ASSOC_ALPHA_LR_MULT
+    |     ^^^^^^^^^^^^^^^^^^^^^^^
+250 |     cfg_assoc_addr_lr_mult: f32,   // AIDEEN_ASSOC_ADDR_LR_MULT
+    |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: multiple associated items are never used
+    --> aideen-training-lab/src/trainer.rs:422:8
+     |
+253  | impl Trainer {
+     | ------------ associated items in this implementation
+...
+422  |     fn emergency_solve_cap(&self) -> u32 {
+     |        ^^^^^^^^^^^^^^^^^^^
+...
+519  |     fn assoc_banks_from_env() -> usize {
+     |        ^^^^^^^^^^^^^^^^^^^^
+...
+527  |     fn format_assoc_state_summary(assoc: &[f32], h_slots: usize, d_model: usize) -> String {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+573  |     fn format_assoc_budget_debug(debug: &[f32], h_slots: usize) -> Option<String> {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+595  |     fn format_assoc_bridge_debug(debug: &[f32], h_slots: usize) -> Option<String> {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+630  |     fn format_assoc_read_debug(debug: &[f32], h_slots: usize) -> Option<String> {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^
+...
+957  |     fn gib(bytes: f64) -> f64 {
+     |        ^^^
+...
+969  |     fn baseline_fpm_enabled() -> bool {
+     |        ^^^^^^^^^^^^^^^^^^^^
+...
+983  |     fn effective_fpm_enabled() -> bool {
+     |        ^^^^^^^^^^^^^^^^^^^^^
+...
+987  |     fn fpm_stage_from_env() -> u32 {
+     |        ^^^^^^^^^^^^^^^^^^
+...
+1006 |     fn estimate_forward_bandwidth_bytes(
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1047 |     fn decode_forward_debug_metrics(
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1117 |     fn decode_slot_observability_metrics(fw: &[f32], h_slots: usize) -> Vec<(f32, f32, f32)> {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1129 |     fn decode_slot_max_a_delta_metrics(fw: &[f32], h_slots: usize) -> Vec<f32> {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1141 |     fn decode_slot_owner_metrics(fw: &[f32], h_slots: usize) -> Vec<(f32, f32, f32)> {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1153 |     fn decode_debug_snapshot_header(fw: &[f32]) -> Option<(f32, f32, f32, f32, f32, f32, f32)> {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1160 |     fn valid_debug_snapshot(fw: &[f32]) -> bool {
+     |        ^^^^^^^^^^^^^^^^^^^^
+...
+1413 |     fn extract_slot_incoming(audit: &str) -> Option<&str> {
+     |        ^^^^^^^^^^^^^^^^^^^^^
+...
+1511 |     fn decode_fpm_diag_metrics(
+     |        ^^^^^^^^^^^^^^^^^^^^^^^
+...
+1539 |     fn decode_fpm_read_metrics(
+     |        ^^^^^^^^^^^^^^^^^^^^^^^
+...
+1584 |     fn decode_fpm_write_branch_metrics(
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1606 |     fn decode_fpm_health_metrics(fw: &[f32], h_slots: usize) -> Option<FpmHealthMetrics> {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+1648 |     fn fpm_health_threshold(epsilon: f32) -> f32 {
+     |        ^^^^^^^^^^^^^^^^^^^^
+...
+1654 |     fn classify_fpm_solve(
+     |        ^^^^^^^^^^^^^^^^^^
+...
+1720 |     fn update_fpm_runtime_schedule(&mut self) {
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+...
+2009 |     fn damping_eff(&self) -> f32 {
+     |        ^^^^^^^^^^^
+...
+2090 |     fn internal_segment_len(&self) -> Option<u32> {
+     |        ^^^^^^^^^^^^^^^^^^^^
+...
+3998 |     fn apply_training_update_from_gpu_buffers(
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: `aideen-training` (lib) generated 7 warnings (run `cargo fix --lib -p aideen-training` to apply 2 suggestions)
+    Finished `release` profile [optimized] target(s) in 0.31s
+     Running `target/release/block_deq_train aideen-bench/tinyshakespeare.txt`
+block_deq_train corpus=aideen-bench/tinyshakespeare.txt token_source=char tokens=1115394 train_tokens=1059624 val_tokens=55770 vocab=65 batch=2 block_len=32 d=32 slots=4 steps=16000 val_steps=872 val_mode=fixed val_fixed_offset=0 token_seed=13
+config memory=true fpm=true consolidate_fpm=true gate_reward=RetrievalAdvantage target=utility_aligned_delta functional_mix=0.250 cond=query_token_blend target_scale=token_state pre_deq=residual_learned_relation_entity train_decoder=true train_embedding=true
+step=100 elapsed_s=3.2 steps_per_sec=31.364 loss_pre=4.1194 loss_post=3.5042 fpm_loss=0.108376 gate=0.1646 desired=0.1463 util=+0.017162
+step=200 elapsed_s=6.8 steps_per_sec=29.608 loss_pre=3.3980 loss_post=3.1475 fpm_loss=0.093456 gate=0.1355 desired=0.1460 util=-0.004867
+step=300 elapsed_s=10.3 steps_per_sec=29.198 loss_pre=3.2809 loss_post=3.1474 fpm_loss=0.049143 gate=0.1891 desired=0.1849 util=+0.000546
+step=400 elapsed_s=13.8 steps_per_sec=29.000 loss_pre=3.2795 loss_post=3.1050 fpm_loss=0.115219 gate=0.1835 desired=0.1665 util=-0.006641
+step=500 elapsed_s=17.4 steps_per_sec=28.798 loss_pre=3.2128 loss_post=3.0770 fpm_loss=0.102186 gate=0.1854 desired=0.1932 util=-0.018945
+val step=500 steps=872 loss_pre=3.4322 loss_train=3.4322 loss_post=3.4322 ppl_proxy=30.9451
+  fpm: utility=+0.000271 replay_utility=+0.000271 retrieval_loss=0.118888 retrieval_sim=0.899907
+  pipeline: projected=64.000 candidates=63.955 feed_entries=512.000 consolidated=167.018 accept_rate=0.999 cons_rate=0.326
+  gate: mean=0.184222 learned_cap=0.199998 desired=0.175068 policy_reward=+0.000000
+  signal: raw_op_rms=0.758726 op_rms=0.380584 gated_rms=0.070092 memory_rms=0.351233 target_cosine=+0.618635 useful_high_mse=0.535550
+  functional: loss_gain=+0.000271 usefulness=0.000000 residual_rms=0.400636 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=3.432215 alpha_entity=-0.162125
+step=600 elapsed_s=32.9 steps_per_sec=18.254 loss_pre=3.1346 loss_post=3.0777 fpm_loss=0.076516 gate=0.1859 desired=0.1891 util=-0.019152
+step=700 elapsed_s=36.4 steps_per_sec=19.228 loss_pre=3.0101 loss_post=2.9990 fpm_loss=0.045518 gate=0.1832 desired=0.1651 util=+0.003191
+step=800 elapsed_s=40.0 steps_per_sec=20.021 loss_pre=3.0701 loss_post=3.0411 fpm_loss=0.033318 gate=0.1850 desired=0.1912 util=+0.001651
+step=900 elapsed_s=43.5 steps_per_sec=20.689 loss_pre=3.3989 loss_post=3.3727 fpm_loss=0.036790 gate=0.1854 desired=0.1871 util=+0.003118
+step=1000 elapsed_s=47.1 steps_per_sec=21.249 loss_pre=2.9000 loss_post=2.8874 fpm_loss=0.038619 gate=0.1851 desired=0.1919 util=-0.005669
+val step=1000 steps=872 loss_pre=3.2609 loss_train=3.2609 loss_post=3.2609 ppl_proxy=26.0718
+  fpm: utility=+0.000261 replay_utility=+0.000261 retrieval_loss=0.043173 retrieval_sim=0.933021
+  pipeline: projected=64.000 candidates=63.002 feed_entries=512.000 consolidated=128.508 accept_rate=0.984 cons_rate=0.251
+  gate: mean=0.183460 learned_cap=0.199998 desired=0.168956 policy_reward=+0.000000
+  signal: raw_op_rms=0.382826 op_rms=0.226857 gated_rms=0.041640 memory_rms=0.135716 target_cosine=+0.541135 useful_high_mse=0.498853
+  functional: loss_gain=+0.000261 usefulness=0.000000 residual_rms=0.106829 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=3.260856 alpha_entity=-0.423806
+step=1100 elapsed_s=63.1 steps_per_sec=17.444 loss_pre=3.0957 loss_post=3.0630 fpm_loss=0.052229 gate=0.1863 desired=0.1946 util=-0.002783
+step=1200 elapsed_s=67.2 steps_per_sec=17.868 loss_pre=3.1798 loss_post=3.1591 fpm_loss=0.045819 gate=0.1867 desired=0.2026 util=+0.001484
+step=1300 elapsed_s=71.0 steps_per_sec=18.312 loss_pre=3.2458 loss_post=3.2279 fpm_loss=0.036057 gate=0.1868 desired=0.2128 util=+0.003384
+step=1400 elapsed_s=74.8 steps_per_sec=18.721 loss_pre=3.0224 loss_post=3.0017 fpm_loss=0.027585 gate=0.1872 desired=0.2173 util=-0.003729
+step=1500 elapsed_s=78.6 steps_per_sec=19.080 loss_pre=2.9806 loss_post=2.9634 fpm_loss=0.042465 gate=0.1858 desired=0.1965 util=-0.002288
+val step=1500 steps=872 loss_pre=3.1033 loss_train=3.1033 loss_post=3.1033 ppl_proxy=22.2721
+  fpm: utility=+0.001010 replay_utility=+0.001010 retrieval_loss=0.036109 retrieval_sim=0.916865
+  pipeline: projected=64.000 candidates=63.606 feed_entries=512.000 consolidated=118.372 accept_rate=0.994 cons_rate=0.231
+  gate: mean=0.183949 learned_cap=0.199998 desired=0.173450 policy_reward=+0.000000
+  signal: raw_op_rms=0.356690 op_rms=0.214016 gated_rms=0.039371 memory_rms=0.131874 target_cosine=+0.665010 useful_high_mse=0.567661
+  functional: loss_gain=+0.001010 usefulness=0.000000 residual_rms=0.105326 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=3.103333 alpha_entity=-0.456512
+step=1600 elapsed_s=95.7 steps_per_sec=16.721 loss_pre=2.6451 loss_post=2.6250 fpm_loss=0.035062 gate=0.1861 desired=0.1780 util=+0.000473
+step=1700 elapsed_s=99.3 steps_per_sec=17.128 loss_pre=2.5541 loss_post=2.5341 fpm_loss=0.026545 gate=0.1864 desired=0.2091 util=+0.000682
+step=1800 elapsed_s=102.8 steps_per_sec=17.510 loss_pre=2.9029 loss_post=2.8826 fpm_loss=0.030090 gate=0.1868 desired=0.2193 util=+0.004351
+step=1900 elapsed_s=106.3 steps_per_sec=17.867 loss_pre=2.9525 loss_post=2.9404 fpm_loss=0.027434 gate=0.1872 desired=0.1868 util=-0.002609
+step=2000 elapsed_s=109.9 steps_per_sec=18.195 loss_pre=3.2211 loss_post=3.1916 fpm_loss=0.020252 gate=0.1869 desired=0.2157 util=-0.003362
+val step=2000 steps=872 loss_pre=2.9833 loss_train=2.9833 loss_post=2.9833 ppl_proxy=19.7534
+  fpm: utility=+0.001428 replay_utility=+0.001428 retrieval_loss=0.039787 retrieval_sim=0.906627
+  pipeline: projected=64.000 candidates=63.769 feed_entries=512.000 consolidated=98.982 accept_rate=0.996 cons_rate=0.193
+  gate: mean=0.184487 learned_cap=0.199998 desired=0.177424 policy_reward=+0.000000
+  signal: raw_op_rms=0.358683 op_rms=0.225420 gated_rms=0.041588 memory_rms=0.151199 target_cosine=+0.676888 useful_high_mse=0.572248
+  functional: loss_gain=+0.001428 usefulness=0.000000 residual_rms=0.129918 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.983325 alpha_entity=-0.477049
+step=2100 elapsed_s=125.5 steps_per_sec=16.732 loss_pre=2.8956 loss_post=2.8756 fpm_loss=0.057858 gate=0.1863 desired=0.1968 util=+0.006968
+step=2200 elapsed_s=129.2 steps_per_sec=17.022 loss_pre=2.6793 loss_post=2.6596 fpm_loss=0.030544 gate=0.1877 desired=0.2200 util=+0.003910
+step=2300 elapsed_s=132.8 steps_per_sec=17.324 loss_pre=3.1918 loss_post=3.1456 fpm_loss=0.019709 gate=0.1864 desired=0.1943 util=+0.002201
+step=2400 elapsed_s=136.3 steps_per_sec=17.610 loss_pre=3.0616 loss_post=3.0420 fpm_loss=0.030343 gate=0.1873 desired=0.2147 util=+0.000190
+step=2500 elapsed_s=139.8 steps_per_sec=17.882 loss_pre=2.6593 loss_post=2.6372 fpm_loss=0.040565 gate=0.1879 desired=0.2256 util=-0.007280
+val step=2500 steps=872 loss_pre=2.8924 loss_train=2.8924 loss_post=2.8924 ppl_proxy=18.0366
+  fpm: utility=+0.000273 replay_utility=+0.000273 retrieval_loss=0.036180 retrieval_sim=0.886354
+  pipeline: projected=64.000 candidates=63.771 feed_entries=512.000 consolidated=90.862 accept_rate=0.996 cons_rate=0.177
+  gate: mean=0.184611 learned_cap=0.199998 desired=0.178525 policy_reward=+0.000000
+  signal: raw_op_rms=0.309049 op_rms=0.210018 gated_rms=0.038782 memory_rms=0.139504 target_cosine=+0.576982 useful_high_mse=0.529817
+  functional: loss_gain=+0.000273 usefulness=0.000000 residual_rms=0.115890 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.892403 alpha_entity=-0.494470
+step=2600 elapsed_s=155.3 steps_per_sec=16.744 loss_pre=3.1561 loss_post=3.1222 fpm_loss=0.035600 gate=0.1876 desired=0.2165 util=+0.017338
+step=2700 elapsed_s=158.8 steps_per_sec=17.001 loss_pre=2.5656 loss_post=2.5523 fpm_loss=0.024494 gate=0.1878 desired=0.2206 util=-0.007540
+step=2800 elapsed_s=162.3 steps_per_sec=17.248 loss_pre=2.8043 loss_post=2.7840 fpm_loss=0.041178 gate=0.1875 desired=0.2152 util=-0.002737
+step=2900 elapsed_s=165.8 steps_per_sec=17.486 loss_pre=3.0244 loss_post=2.9957 fpm_loss=0.028923 gate=0.1871 desired=0.2188 util=-0.006300
+step=3000 elapsed_s=169.5 steps_per_sec=17.703 loss_pre=2.7638 loss_post=2.7341 fpm_loss=0.026253 gate=0.1875 desired=0.2213 util=-0.002681
+val step=3000 steps=872 loss_pre=2.8279 loss_train=2.8279 loss_post=2.8279 ppl_proxy=16.9095
+  fpm: utility=-0.000244 replay_utility=-0.000244 retrieval_loss=0.034923 retrieval_sim=0.863532
+  pipeline: projected=64.000 candidates=63.678 feed_entries=512.000 consolidated=85.134 accept_rate=0.995 cons_rate=0.166
+  gate: mean=0.184507 learned_cap=0.199998 desired=0.177885 policy_reward=+0.000000
+  signal: raw_op_rms=0.309066 op_rms=0.204521 gated_rms=0.037732 memory_rms=0.129479 target_cosine=+0.535088 useful_high_mse=0.467890
+  functional: loss_gain=-0.000244 usefulness=0.000000 residual_rms=0.106679 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.827875 alpha_entity=-0.499992
+step=3100 elapsed_s=185.3 steps_per_sec=16.732 loss_pre=2.6655 loss_post=2.6492 fpm_loss=0.039465 gate=0.1876 desired=0.2173 util=-0.000583
+step=3200 elapsed_s=188.8 steps_per_sec=16.948 loss_pre=3.5114 loss_post=3.4940 fpm_loss=0.033332 gate=0.1879 desired=0.2234 util=-0.009342
+step=3300 elapsed_s=192.3 steps_per_sec=17.157 loss_pre=3.3530 loss_post=3.3284 fpm_loss=0.040000 gate=0.1881 desired=0.2223 util=-0.005377
+step=3400 elapsed_s=195.9 steps_per_sec=17.360 loss_pre=2.7810 loss_post=2.7621 fpm_loss=0.033684 gate=0.1886 desired=0.2283 util=+0.000519
+step=3500 elapsed_s=199.4 steps_per_sec=17.553 loss_pre=2.7531 loss_post=2.7243 fpm_loss=0.031244 gate=0.1872 desired=0.2018 util=+0.002427
+val step=3500 steps=872 loss_pre=2.7928 loss_train=2.7928 loss_post=2.7928 ppl_proxy=16.3265
+  fpm: utility=+0.000632 replay_utility=+0.000632 retrieval_loss=0.030410 retrieval_sim=0.844910
+  pipeline: projected=64.000 candidates=63.659 feed_entries=512.000 consolidated=88.976 accept_rate=0.995 cons_rate=0.174
+  gate: mean=0.184639 learned_cap=0.199998 desired=0.178912 policy_reward=+0.000000
+  signal: raw_op_rms=0.282481 op_rms=0.191561 gated_rms=0.035362 memory_rms=0.115563 target_cosine=+0.546830 useful_high_mse=0.559633
+  functional: loss_gain=+0.000632 usefulness=0.000000 residual_rms=0.095547 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.792788 alpha_entity=-0.499877
+step=3600 elapsed_s=214.9 steps_per_sec=16.755 loss_pre=2.7147 loss_post=2.6953 fpm_loss=0.030065 gate=0.1877 desired=0.2261 util=+0.001330
+step=3700 elapsed_s=218.7 steps_per_sec=16.922 loss_pre=2.8362 loss_post=2.8151 fpm_loss=0.026920 gate=0.1875 desired=0.2251 util=+0.002394
+step=3800 elapsed_s=222.2 steps_per_sec=17.098 loss_pre=3.2671 loss_post=3.2534 fpm_loss=0.030126 gate=0.1874 desired=0.2137 util=-0.002404
+step=3900 elapsed_s=225.8 steps_per_sec=17.274 loss_pre=2.9579 loss_post=2.9418 fpm_loss=0.023609 gate=0.1877 desired=0.2167 util=+0.000937
+step=4000 elapsed_s=229.3 steps_per_sec=17.445 loss_pre=2.4069 loss_post=2.3958 fpm_loss=0.026954 gate=0.1867 desired=0.2021 util=+0.001125
+val step=4000 steps=872 loss_pre=2.7690 loss_train=2.7690 loss_post=2.7690 ppl_proxy=15.9423
+  fpm: utility=+0.000301 replay_utility=+0.000301 retrieval_loss=0.030069 retrieval_sim=0.827903
+  pipeline: projected=64.000 candidates=63.596 feed_entries=512.000 consolidated=90.784 accept_rate=0.994 cons_rate=0.177
+  gate: mean=0.184447 learned_cap=0.199998 desired=0.177227 policy_reward=+0.000000
+  signal: raw_op_rms=0.261355 op_rms=0.187264 gated_rms=0.034531 memory_rms=0.107265 target_cosine=+0.486551 useful_high_mse=0.542431
+  functional: loss_gain=+0.000301 usefulness=0.000000 residual_rms=0.086400 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.768974 alpha_entity=-0.500000
+step=4100 elapsed_s=244.7 steps_per_sec=16.752 loss_pre=2.4009 loss_post=2.3851 fpm_loss=0.027941 gate=0.1878 desired=0.2289 util=+0.003640
+step=4200 elapsed_s=248.3 steps_per_sec=16.912 loss_pre=3.0026 loss_post=2.9792 fpm_loss=0.020901 gate=0.1872 desired=0.2072 util=+0.013301
+step=4300 elapsed_s=251.9 steps_per_sec=17.071 loss_pre=2.9279 loss_post=2.9067 fpm_loss=0.032768 gate=0.1872 desired=0.1852 util=-0.003493
+step=4400 elapsed_s=255.4 steps_per_sec=17.226 loss_pre=2.6863 loss_post=2.6634 fpm_loss=0.023676 gate=0.1875 desired=0.2122 util=-0.005625
+step=4500 elapsed_s=258.9 steps_per_sec=17.378 loss_pre=2.4058 loss_post=2.3959 fpm_loss=0.033999 gate=0.1879 desired=0.2323 util=-0.002093
+val step=4500 steps=872 loss_pre=2.7427 loss_train=2.7427 loss_post=2.7427 ppl_proxy=15.5287
+  fpm: utility=+0.000931 replay_utility=+0.000931 retrieval_loss=0.024861 retrieval_sim=0.817705
+  pipeline: projected=64.000 candidates=63.503 feed_entries=512.000 consolidated=97.439 accept_rate=0.992 cons_rate=0.190
+  gate: mean=0.184519 learned_cap=0.199998 desired=0.178057 policy_reward=+0.000000
+  signal: raw_op_rms=0.239646 op_rms=0.170940 gated_rms=0.031526 memory_rms=0.090307 target_cosine=+0.479031 useful_high_mse=0.603211
+  functional: loss_gain=+0.000931 usefulness=0.000000 residual_rms=0.074886 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.742692 alpha_entity=-0.500000
+step=4600 elapsed_s=274.7 steps_per_sec=16.748 loss_pre=2.8231 loss_post=2.8065 fpm_loss=0.033813 gate=0.1883 desired=0.2251 util=+0.005553
+step=4700 elapsed_s=278.2 steps_per_sec=16.893 loss_pre=3.0073 loss_post=2.9903 fpm_loss=0.043788 gate=0.1878 desired=0.2136 util=+0.001168
+step=4800 elapsed_s=281.8 steps_per_sec=17.036 loss_pre=2.6341 loss_post=2.6198 fpm_loss=0.033669 gate=0.1884 desired=0.2298 util=+0.005605
+step=4900 elapsed_s=285.3 steps_per_sec=17.175 loss_pre=2.4289 loss_post=2.4134 fpm_loss=0.017876 gate=0.1875 desired=0.2191 util=+0.000686
+step=5000 elapsed_s=288.8 steps_per_sec=17.312 loss_pre=2.6264 loss_post=2.6128 fpm_loss=0.030957 gate=0.1879 desired=0.2065 util=-0.004461
+val step=5000 steps=872 loss_pre=2.7256 loss_train=2.7256 loss_post=2.7256 ppl_proxy=15.2652
+  fpm: utility=+0.000253 replay_utility=+0.000253 retrieval_loss=0.026972 retrieval_sim=0.819219
+  pipeline: projected=64.000 candidates=63.484 feed_entries=512.000 consolidated=93.282 accept_rate=0.992 cons_rate=0.182
+  gate: mean=0.184749 learned_cap=0.199998 desired=0.179919 policy_reward=+0.000000
+  signal: raw_op_rms=0.245857 op_rms=0.177143 gated_rms=0.032707 memory_rms=0.099343 target_cosine=+0.472617 useful_high_mse=0.522936
+  functional: loss_gain=+0.000253 usefulness=0.000000 residual_rms=0.082652 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.725573 alpha_entity=-0.499932
+step=5100 elapsed_s=304.4 steps_per_sec=16.752 loss_pre=2.6252 loss_post=2.6070 fpm_loss=0.024724 gate=0.1881 desired=0.2234 util=-0.005370
+step=5200 elapsed_s=308.2 steps_per_sec=16.872 loss_pre=2.6867 loss_post=2.6645 fpm_loss=0.039379 gate=0.1878 desired=0.2199 util=-0.000094
+step=5300 elapsed_s=311.7 steps_per_sec=17.002 loss_pre=2.6972 loss_post=2.6831 fpm_loss=0.024335 gate=0.1876 desired=0.2159 util=+0.003147
+step=5400 elapsed_s=315.3 steps_per_sec=17.129 loss_pre=2.6751 loss_post=2.6616 fpm_loss=0.026033 gate=0.1882 desired=0.2156 util=-0.005956
+step=5500 elapsed_s=318.8 steps_per_sec=17.254 loss_pre=2.7092 loss_post=2.6921 fpm_loss=0.022836 gate=0.1882 desired=0.2309 util=+0.001184
+val step=5500 steps=872 loss_pre=2.7215 loss_train=2.7215 loss_post=2.7215 ppl_proxy=15.2028
+  fpm: utility=+0.000274 replay_utility=+0.000274 retrieval_loss=0.031531 retrieval_sim=0.815435
+  pipeline: projected=64.000 candidates=63.493 feed_entries=512.000 consolidated=91.893 accept_rate=0.992 cons_rate=0.179
+  gate: mean=0.184739 learned_cap=0.199998 desired=0.179589 policy_reward=+0.000000
+  signal: raw_op_rms=0.256939 op_rms=0.190497 gated_rms=0.035175 memory_rms=0.112280 target_cosine=+0.449596 useful_high_mse=0.529817
+  functional: loss_gain=+0.000274 usefulness=0.000000 residual_rms=0.092690 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.721479 alpha_entity=-0.499854
+step=5600 elapsed_s=334.3 steps_per_sec=16.754 loss_pre=2.9826 loss_post=2.9670 fpm_loss=0.026844 gate=0.1880 desired=0.2313 util=+0.000291
+step=5700 elapsed_s=337.8 steps_per_sec=16.875 loss_pre=2.6512 loss_post=2.6270 fpm_loss=0.033240 gate=0.1874 desired=0.2234 util=+0.001765
+step=5800 elapsed_s=341.3 steps_per_sec=16.994 loss_pre=2.5984 loss_post=2.5838 fpm_loss=0.024842 gate=0.1883 desired=0.2296 util=-0.006140
+step=5900 elapsed_s=344.8 steps_per_sec=17.110 loss_pre=2.6240 loss_post=2.5994 fpm_loss=0.039280 gate=0.1885 desired=0.2233 util=-0.006213
+step=6000 elapsed_s=348.4 steps_per_sec=17.224 loss_pre=2.6295 loss_post=2.6151 fpm_loss=0.031643 gate=0.1881 desired=0.2207 util=+0.005953
+val step=6000 steps=872 loss_pre=2.7072 loss_train=2.7072 loss_post=2.7072 ppl_proxy=14.9873
+  fpm: utility=+0.000222 replay_utility=+0.000222 retrieval_loss=0.031650 retrieval_sim=0.821194
+  pipeline: projected=64.000 candidates=63.407 feed_entries=512.000 consolidated=88.963 accept_rate=0.991 cons_rate=0.174
+  gate: mean=0.184934 learned_cap=0.199998 desired=0.181076 policy_reward=+0.000000
+  signal: raw_op_rms=0.239528 op_rms=0.190637 gated_rms=0.035243 memory_rms=0.115786 target_cosine=+0.440927 useful_high_mse=0.525229
+  functional: loss_gain=+0.000222 usefulness=0.000000 residual_rms=0.093605 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.707205 alpha_entity=-0.499052
+step=6100 elapsed_s=364.2 steps_per_sec=16.750 loss_pre=2.6079 loss_post=2.5725 fpm_loss=0.024348 gate=0.1882 desired=0.2281 util=-0.001234
+step=6200 elapsed_s=367.8 steps_per_sec=16.858 loss_pre=2.8988 loss_post=2.8722 fpm_loss=0.041102 gate=0.1876 desired=0.2226 util=+0.003719
+step=6300 elapsed_s=371.3 steps_per_sec=16.968 loss_pre=2.8389 loss_post=2.8188 fpm_loss=0.040172 gate=0.1882 desired=0.2334 util=-0.000403
+step=6400 elapsed_s=374.8 steps_per_sec=17.075 loss_pre=2.9849 loss_post=2.9562 fpm_loss=0.039893 gate=0.1879 desired=0.2218 util=+0.018159
+step=6500 elapsed_s=378.3 steps_per_sec=17.182 loss_pre=2.2399 loss_post=2.2165 fpm_loss=0.045246 gate=0.1886 desired=0.2217 util=+0.000576
+val step=6500 steps=872 loss_pre=2.6954 loss_train=2.6954 loss_post=2.6954 ppl_proxy=14.8115
+  fpm: utility=+0.000763 replay_utility=+0.000763 retrieval_loss=0.032633 retrieval_sim=0.805133
+  pipeline: projected=64.000 candidates=63.416 feed_entries=512.000 consolidated=84.142 accept_rate=0.991 cons_rate=0.164
+  gate: mean=0.184925 learned_cap=0.199998 desired=0.181066 policy_reward=+0.000000
+  signal: raw_op_rms=0.245908 op_rms=0.193867 gated_rms=0.035838 memory_rms=0.125174 target_cosine=+0.450186 useful_high_mse=0.549312
+  functional: loss_gain=+0.000763 usefulness=0.000000 residual_rms=0.103016 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.695401 alpha_entity=-0.499937
+step=6600 elapsed_s=393.7 steps_per_sec=16.763 loss_pre=3.1325 loss_post=3.1102 fpm_loss=0.025674 gate=0.1881 desired=0.2285 util=+0.004033
+step=6700 elapsed_s=397.2 steps_per_sec=16.866 loss_pre=2.8556 loss_post=2.8304 fpm_loss=0.039945 gate=0.1878 desired=0.2252 util=+0.008766
+step=6800 elapsed_s=400.8 steps_per_sec=16.968 loss_pre=2.6714 loss_post=2.6557 fpm_loss=0.027615 gate=0.1879 desired=0.2296 util=-0.007565
+step=6900 elapsed_s=404.3 steps_per_sec=17.067 loss_pre=2.6083 loss_post=2.5963 fpm_loss=0.030233 gate=0.1884 desired=0.2204 util=-0.001447
+step=7000 elapsed_s=407.8 steps_per_sec=17.165 loss_pre=2.3703 loss_post=2.3594 fpm_loss=0.022472 gate=0.1878 desired=0.2215 util=-0.000239
+val step=7000 steps=872 loss_pre=2.6785 loss_train=2.6785 loss_post=2.6785 ppl_proxy=14.5627
+  fpm: utility=+0.000861 replay_utility=+0.000861 retrieval_loss=0.028113 retrieval_sim=0.788095
+  pipeline: projected=64.000 candidates=63.241 feed_entries=512.000 consolidated=92.688 accept_rate=0.988 cons_rate=0.181
+  gate: mean=0.184584 learned_cap=0.199998 desired=0.178263 policy_reward=+0.000000
+  signal: raw_op_rms=0.241835 op_rms=0.178881 gated_rms=0.033010 memory_rms=0.098981 target_cosine=+0.429440 useful_high_mse=0.588303
+  functional: loss_gain=+0.000861 usefulness=0.000000 residual_rms=0.080571 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.678466 alpha_entity=-0.499747
+step=7100 elapsed_s=423.3 steps_per_sec=16.774 loss_pre=2.6625 loss_post=2.6319 fpm_loss=0.029447 gate=0.1875 desired=0.2151 util=-0.000294
+step=7200 elapsed_s=426.8 steps_per_sec=16.871 loss_pre=2.7475 loss_post=2.7280 fpm_loss=0.025259 gate=0.1878 desired=0.2285 util=-0.003194
+step=7300 elapsed_s=430.3 steps_per_sec=16.965 loss_pre=2.5790 loss_post=2.5552 fpm_loss=0.032941 gate=0.1870 desired=0.2015 util=+0.007563
+step=7400 elapsed_s=433.8 steps_per_sec=17.058 loss_pre=2.6944 loss_post=2.6786 fpm_loss=0.022672 gate=0.1876 desired=0.2228 util=+0.003050
+step=7500 elapsed_s=437.3 steps_per_sec=17.150 loss_pre=2.4474 loss_post=2.4354 fpm_loss=0.018634 gate=0.1872 desired=0.2065 util=+0.001351
+val step=7500 steps=872 loss_pre=2.6609 loss_train=2.6609 loss_post=2.6609 ppl_proxy=14.3085
+  fpm: utility=+0.001098 replay_utility=+0.001098 retrieval_loss=0.023597 retrieval_sim=0.778618
+  pipeline: projected=64.000 candidates=63.046 feed_entries=512.000 consolidated=93.968 accept_rate=0.985 cons_rate=0.184
+  gate: mean=0.184606 learned_cap=0.199998 desired=0.178581 policy_reward=+0.000000
+  signal: raw_op_rms=0.215366 op_rms=0.162815 gated_rms=0.030048 memory_rms=0.084718 target_cosine=+0.389373 useful_high_mse=0.604358
+  functional: loss_gain=+0.001098 usefulness=0.000000 residual_rms=0.071750 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.660854 alpha_entity=-0.491783
+step=7600 elapsed_s=452.7 steps_per_sec=16.787 loss_pre=2.2436 loss_post=2.2348 fpm_loss=0.030651 gate=0.1884 desired=0.2335 util=+0.004191
+step=7700 elapsed_s=456.3 steps_per_sec=16.877 loss_pre=2.5367 loss_post=2.5145 fpm_loss=0.024061 gate=0.1872 desired=0.2268 util=-0.001482
+step=7800 elapsed_s=459.8 steps_per_sec=16.965 loss_pre=2.4731 loss_post=2.4569 fpm_loss=0.016234 gate=0.1882 desired=0.2240 util=+0.006364
+step=7900 elapsed_s=463.3 steps_per_sec=17.051 loss_pre=2.5400 loss_post=2.5231 fpm_loss=0.019283 gate=0.1881 desired=0.2285 util=-0.001502
+step=8000 elapsed_s=466.8 steps_per_sec=17.137 loss_pre=2.6059 loss_post=2.5903 fpm_loss=0.026046 gate=0.1883 desired=0.2256 util=+0.004293
+val step=8000 steps=872 loss_pre=2.6466 loss_train=2.6466 loss_post=2.6466 ppl_proxy=14.1065
+  fpm: utility=+0.000694 replay_utility=+0.000694 retrieval_loss=0.023390 retrieval_sim=0.784127
+  pipeline: projected=64.000 candidates=63.148 feed_entries=512.000 consolidated=89.237 accept_rate=0.987 cons_rate=0.174
+  gate: mean=0.184758 learned_cap=0.199998 desired=0.180185 policy_reward=+0.000000
+  signal: raw_op_rms=0.212031 op_rms=0.162684 gated_rms=0.030040 memory_rms=0.087720 target_cosine=+0.398766 useful_high_mse=0.556193
+  functional: loss_gain=+0.000694 usefulness=0.000000 residual_rms=0.073134 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.646636 alpha_entity=-0.497840
+step=8100 elapsed_s=482.2 steps_per_sec=16.797 loss_pre=2.3773 loss_post=2.3518 fpm_loss=0.016038 gate=0.1879 desired=0.2307 util=+0.002366
+step=8200 elapsed_s=485.8 steps_per_sec=16.881 loss_pre=2.3389 loss_post=2.3248 fpm_loss=0.031733 gate=0.1876 desired=0.2191 util=-0.001738
+step=8300 elapsed_s=489.5 steps_per_sec=16.956 loss_pre=2.5502 loss_post=2.5346 fpm_loss=0.030142 gate=0.1877 desired=0.2310 util=+0.008358
+step=8400 elapsed_s=493.0 steps_per_sec=17.038 loss_pre=2.7781 loss_post=2.7525 fpm_loss=0.024152 gate=0.1878 desired=0.2280 util=+0.006809
+step=8500 elapsed_s=496.5 steps_per_sec=17.119 loss_pre=2.5556 loss_post=2.5382 fpm_loss=0.023669 gate=0.1884 desired=0.2264 util=-0.000109
+val step=8500 steps=872 loss_pre=2.6424 loss_train=2.6424 loss_post=2.6424 ppl_proxy=14.0467
+  fpm: utility=+0.000674 replay_utility=+0.000674 retrieval_loss=0.028079 retrieval_sim=0.791963
+  pipeline: projected=64.000 candidates=63.279 feed_entries=512.000 consolidated=90.911 accept_rate=0.989 cons_rate=0.178
+  gate: mean=0.184963 learned_cap=0.199998 desired=0.181508 policy_reward=+0.000000
+  signal: raw_op_rms=0.225859 op_rms=0.176915 gated_rms=0.032713 memory_rms=0.111096 target_cosine=+0.378252 useful_high_mse=0.563073
+  functional: loss_gain=+0.000674 usefulness=0.000000 residual_rms=0.094599 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.642387 alpha_entity=-0.500000
+step=8600 elapsed_s=512.0 steps_per_sec=16.797 loss_pre=2.7848 loss_post=2.7607 fpm_loss=0.023474 gate=0.1877 desired=0.2259 util=+0.001817
+step=8700 elapsed_s=515.5 steps_per_sec=16.875 loss_pre=2.9175 loss_post=2.8937 fpm_loss=0.022737 gate=0.1877 desired=0.2294 util=-0.000385
+step=8800 elapsed_s=519.2 steps_per_sec=16.948 loss_pre=2.6799 loss_post=2.6647 fpm_loss=0.026611 gate=0.1881 desired=0.2221 util=+0.008445
+step=8900 elapsed_s=522.8 steps_per_sec=17.025 loss_pre=2.7112 loss_post=2.6852 fpm_loss=0.024086 gate=0.1888 desired=0.2350 util=-0.003169
+step=9000 elapsed_s=526.3 steps_per_sec=17.101 loss_pre=2.5954 loss_post=2.5760 fpm_loss=0.026643 gate=0.1878 desired=0.2195 util=+0.005515
+val step=9000 steps=872 loss_pre=2.6392 loss_train=2.6392 loss_post=2.6392 ppl_proxy=14.0023
+  fpm: utility=+0.000745 replay_utility=+0.000745 retrieval_loss=0.028199 retrieval_sim=0.783953
+  pipeline: projected=64.000 candidates=63.143 feed_entries=512.000 consolidated=91.271 accept_rate=0.987 cons_rate=0.178
+  gate: mean=0.184827 learned_cap=0.199998 desired=0.180207 policy_reward=+0.000000
+  signal: raw_op_rms=0.227278 op_rms=0.177631 gated_rms=0.032822 memory_rms=0.109415 target_cosine=+0.394036 useful_high_mse=0.541284
+  functional: loss_gain=+0.000745 usefulness=0.000000 residual_rms=0.090893 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.639220 alpha_entity=-0.499998
+step=9100 elapsed_s=542.0 steps_per_sec=16.791 loss_pre=2.3884 loss_post=2.3766 fpm_loss=0.023376 gate=0.1878 desired=0.2253 util=-0.000689
+step=9200 elapsed_s=545.6 steps_per_sec=16.863 loss_pre=2.6182 loss_post=2.5980 fpm_loss=0.049179 gate=0.1867 desired=0.1928 util=+0.022571
+step=9300 elapsed_s=549.1 steps_per_sec=16.938 loss_pre=2.6133 loss_post=2.5888 fpm_loss=0.020402 gate=0.1874 desired=0.2261 util=+0.001726
+step=9400 elapsed_s=552.6 steps_per_sec=17.010 loss_pre=2.2056 loss_post=2.1905 fpm_loss=0.023682 gate=0.1878 desired=0.2286 util=+0.002067
+step=9500 elapsed_s=556.1 steps_per_sec=17.082 loss_pre=2.3459 loss_post=2.3231 fpm_loss=0.032365 gate=0.1868 desired=0.1912 util=+0.004956
+val step=9500 steps=872 loss_pre=2.6330 loss_train=2.6330 loss_post=2.6330 ppl_proxy=13.9157
+  fpm: utility=+0.000900 replay_utility=+0.000900 retrieval_loss=0.024305 retrieval_sim=0.777454
+  pipeline: projected=64.000 candidates=62.978 feed_entries=512.000 consolidated=90.799 accept_rate=0.984 cons_rate=0.177
+  gate: mean=0.184738 learned_cap=0.199998 desired=0.180089 policy_reward=+0.000000
+  signal: raw_op_rms=0.211087 op_rms=0.164079 gated_rms=0.030306 memory_rms=0.086889 target_cosine=+0.362483 useful_high_mse=0.558486
+  functional: loss_gain=+0.000900 usefulness=0.000000 residual_rms=0.073191 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.633014 alpha_entity=-0.500000
+step=9600 elapsed_s=571.6 steps_per_sec=16.795 loss_pre=2.4325 loss_post=2.4022 fpm_loss=0.017373 gate=0.1884 desired=0.2355 util=+0.009243
+step=9700 elapsed_s=575.3 steps_per_sec=16.862 loss_pre=2.2768 loss_post=2.2597 fpm_loss=0.022540 gate=0.1879 desired=0.2259 util=+0.000439
+step=9800 elapsed_s=578.8 steps_per_sec=16.931 loss_pre=2.3017 loss_post=2.2926 fpm_loss=0.026201 gate=0.1886 desired=0.2309 util=-0.003744
+step=9900 elapsed_s=582.4 steps_per_sec=17.000 loss_pre=2.5313 loss_post=2.5091 fpm_loss=0.043354 gate=0.1883 desired=0.2203 util=-0.003034
+step=10000 elapsed_s=585.9 steps_per_sec=17.068 loss_pre=2.5627 loss_post=2.5429 fpm_loss=0.026157 gate=0.1881 desired=0.2245 util=-0.001322
+val step=10000 steps=872 loss_pre=2.6390 loss_train=2.6390 loss_post=2.6390 ppl_proxy=13.9997
+  fpm: utility=+0.001192 replay_utility=+0.001192 retrieval_loss=0.025697 retrieval_sim=0.780999
+  pipeline: projected=64.000 candidates=62.932 feed_entries=512.000 consolidated=92.135 accept_rate=0.983 cons_rate=0.180
+  gate: mean=0.184929 learned_cap=0.199998 desired=0.181248 policy_reward=+0.000000
+  signal: raw_op_rms=0.214910 op_rms=0.170087 gated_rms=0.031451 memory_rms=0.097774 target_cosine=+0.397092 useful_high_mse=0.580275
+  functional: loss_gain=+0.001192 usefulness=0.000000 residual_rms=0.081616 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.639039 alpha_entity=-0.499839
+step=10100 elapsed_s=601.4 steps_per_sec=16.795 loss_pre=2.3580 loss_post=2.3299 fpm_loss=0.012835 gate=0.1877 desired=0.2343 util=-0.007914
+step=10200 elapsed_s=604.9 steps_per_sec=16.863 loss_pre=2.4645 loss_post=2.4453 fpm_loss=0.026184 gate=0.1884 desired=0.2376 util=+0.000865
+step=10300 elapsed_s=608.4 steps_per_sec=16.930 loss_pre=2.4613 loss_post=2.4368 fpm_loss=0.056230 gate=0.1867 desired=0.1809 util=-0.004874
+step=10400 elapsed_s=611.9 steps_per_sec=16.996 loss_pre=2.6267 loss_post=2.6111 fpm_loss=0.036698 gate=0.1879 desired=0.2092 util=-0.009324
+step=10500 elapsed_s=615.5 steps_per_sec=17.060 loss_pre=2.3465 loss_post=2.3180 fpm_loss=0.043527 gate=0.1881 desired=0.2191 util=-0.000517
+val step=10500 steps=872 loss_pre=2.6388 loss_train=2.6388 loss_post=2.6388 ppl_proxy=13.9970
+  fpm: utility=+0.001400 replay_utility=+0.001400 retrieval_loss=0.032535 retrieval_sim=0.804488
+  pipeline: projected=64.000 candidates=63.200 feed_entries=512.000 consolidated=85.550 accept_rate=0.987 cons_rate=0.167
+  gate: mean=0.185185 learned_cap=0.199998 desired=0.183658 policy_reward=+0.000000
+  signal: raw_op_rms=0.229867 op_rms=0.192497 gated_rms=0.035641 memory_rms=0.137203 target_cosine=+0.416371 useful_high_mse=0.595183
+  functional: loss_gain=+0.001400 usefulness=0.000000 residual_rms=0.114630 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.638845 alpha_entity=-0.498657
+step=10600 elapsed_s=630.9 steps_per_sec=16.801 loss_pre=2.6169 loss_post=2.5833 fpm_loss=0.031469 gate=0.1882 desired=0.2320 util=+0.010134
+step=10700 elapsed_s=634.5 steps_per_sec=16.865 loss_pre=2.3331 loss_post=2.3189 fpm_loss=0.026570 gate=0.1883 desired=0.2313 util=+0.002284
+step=10800 elapsed_s=638.0 steps_per_sec=16.928 loss_pre=2.2201 loss_post=2.1876 fpm_loss=0.015454 gate=0.1881 desired=0.2362 util=-0.001861
+step=10900 elapsed_s=641.5 steps_per_sec=16.991 loss_pre=2.3584 loss_post=2.3435 fpm_loss=0.016330 gate=0.1887 desired=0.2389 util=-0.005711
+step=11000 elapsed_s=645.0 steps_per_sec=17.054 loss_pre=2.5599 loss_post=2.5226 fpm_loss=0.046838 gate=0.1873 desired=0.2025 util=-0.001190
+val step=11000 steps=872 loss_pre=2.6357 loss_train=2.6357 loss_post=2.6357 ppl_proxy=13.9531
+  fpm: utility=+0.001027 replay_utility=+0.001027 retrieval_loss=0.026505 retrieval_sim=0.772155
+  pipeline: projected=64.000 candidates=62.854 feed_entries=512.000 consolidated=89.221 accept_rate=0.982 cons_rate=0.174
+  gate: mean=0.184980 learned_cap=0.199998 desired=0.181723 policy_reward=+0.000000
+  signal: raw_op_rms=0.214897 op_rms=0.172876 gated_rms=0.031970 memory_rms=0.108620 target_cosine=+0.396420 useful_high_mse=0.569954
+  functional: loss_gain=+0.001027 usefulness=0.000000 residual_rms=0.089424 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.635702 alpha_entity=-0.499603
+step=11100 elapsed_s=660.7 steps_per_sec=16.801 loss_pre=2.6493 loss_post=2.6319 fpm_loss=0.016802 gate=0.1881 desired=0.2333 util=-0.005857
+step=11200 elapsed_s=664.2 steps_per_sec=16.862 loss_pre=2.8601 loss_post=2.8379 fpm_loss=0.014264 gate=0.1876 desired=0.2255 util=+0.004821
+step=11300 elapsed_s=668.2 steps_per_sec=16.910 loss_pre=2.3616 loss_post=2.3482 fpm_loss=0.019158 gate=0.1878 desired=0.2088 util=-0.000617
+step=11400 elapsed_s=672.5 steps_per_sec=16.951 loss_pre=2.6071 loss_post=2.5796 fpm_loss=0.028801 gate=0.1881 desired=0.2240 util=-0.004284
+step=11500 elapsed_s=676.3 steps_per_sec=17.004 loss_pre=2.6585 loss_post=2.6389 fpm_loss=0.019113 gate=0.1880 desired=0.2292 util=+0.001229
+val step=11500 steps=872 loss_pre=2.6175 loss_train=2.6175 loss_post=2.6175 ppl_proxy=13.7011
+  fpm: utility=+0.000055 replay_utility=+0.000055 retrieval_loss=0.023674 retrieval_sim=0.759353
+  pipeline: projected=64.000 candidates=62.622 feed_entries=512.000 consolidated=83.463 accept_rate=0.978 cons_rate=0.163
+  gate: mean=0.184736 learned_cap=0.199998 desired=0.179727 policy_reward=+0.000000
+  signal: raw_op_rms=0.206320 op_rms=0.161423 gated_rms=0.029808 memory_rms=0.092406 target_cosine=+0.344837 useful_high_mse=0.509174
+  functional: loss_gain=+0.000055 usefulness=0.000000 residual_rms=0.076504 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.617474 alpha_entity=-0.500000
+step=11600 elapsed_s=693.1 steps_per_sec=16.737 loss_pre=2.5275 loss_post=2.5122 fpm_loss=0.020476 gate=0.1875 desired=0.2288 util=-0.000171
+step=11700 elapsed_s=696.9 steps_per_sec=16.790 loss_pre=2.5276 loss_post=2.5076 fpm_loss=0.028301 gate=0.1883 desired=0.2114 util=+0.003701
+step=11800 elapsed_s=700.4 steps_per_sec=16.847 loss_pre=2.5769 loss_post=2.5612 fpm_loss=0.018180 gate=0.1880 desired=0.2218 util=+0.008359
+step=11900 elapsed_s=703.9 steps_per_sec=16.905 loss_pre=2.5536 loss_post=2.5383 fpm_loss=0.029832 gate=0.1873 desired=0.2144 util=-0.014120
+step=12000 elapsed_s=707.5 steps_per_sec=16.962 loss_pre=2.4336 loss_post=2.4189 fpm_loss=0.022615 gate=0.1877 desired=0.2076 util=-0.001215
+val step=12000 steps=872 loss_pre=2.6055 loss_train=2.6055 loss_post=2.6055 ppl_proxy=13.5377
+  fpm: utility=+0.000427 replay_utility=+0.000427 retrieval_loss=0.022451 retrieval_sim=0.764396
+  pipeline: projected=64.000 candidates=62.456 feed_entries=512.000 consolidated=87.651 accept_rate=0.976 cons_rate=0.171
+  gate: mean=0.184955 learned_cap=0.199998 desired=0.181713 policy_reward=+0.000000
+  signal: raw_op_rms=0.200931 op_rms=0.158456 gated_rms=0.029299 memory_rms=0.090500 target_cosine=+0.372477 useful_high_mse=0.534404
+  functional: loss_gain=+0.000427 usefulness=0.000000 residual_rms=0.075411 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.605481 alpha_entity=-0.499328
+step=12100 elapsed_s=723.1 steps_per_sec=16.734 loss_pre=2.5164 loss_post=2.4999 fpm_loss=0.021596 gate=0.1882 desired=0.2329 util=-0.004184
+step=12200 elapsed_s=726.7 steps_per_sec=16.788 loss_pre=2.7333 loss_post=2.7220 fpm_loss=0.014592 gate=0.1881 desired=0.2329 util=+0.002466
+step=12300 elapsed_s=730.2 steps_per_sec=16.844 loss_pre=2.6626 loss_post=2.6394 fpm_loss=0.016043 gate=0.1885 desired=0.2349 util=+0.004600
+step=12400 elapsed_s=733.8 steps_per_sec=16.899 loss_pre=2.8033 loss_post=2.7862 fpm_loss=0.021214 gate=0.1876 desired=0.2268 util=+0.000959
+step=12500 elapsed_s=737.3 steps_per_sec=16.954 loss_pre=2.3953 loss_post=2.3782 fpm_loss=0.034115 gate=0.1868 desired=0.1972 util=-0.004693
+val step=12500 steps=872 loss_pre=2.5906 loss_train=2.5906 loss_post=2.5906 ppl_proxy=13.3374
+  fpm: utility=+0.000687 replay_utility=+0.000687 retrieval_loss=0.021735 retrieval_sim=0.760314
+  pipeline: projected=64.000 candidates=62.544 feed_entries=512.000 consolidated=86.292 accept_rate=0.977 cons_rate=0.169
+  gate: mean=0.184685 learned_cap=0.199998 desired=0.179396 policy_reward=+0.000000
+  signal: raw_op_rms=0.202118 op_rms=0.157074 gated_rms=0.028996 memory_rms=0.086497 target_cosine=+0.390179 useful_high_mse=0.542431
+  functional: loss_gain=+0.000687 usefulness=0.000000 residual_rms=0.072601 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.590570 alpha_entity=-0.500000
+step=12600 elapsed_s=752.7 steps_per_sec=16.740 loss_pre=2.3414 loss_post=2.3256 fpm_loss=0.028248 gate=0.1879 desired=0.2204 util=+0.000197
+step=12700 elapsed_s=756.2 steps_per_sec=16.794 loss_pre=2.4929 loss_post=2.4710 fpm_loss=0.026505 gate=0.1881 desired=0.2319 util=+0.002166
+step=12800 elapsed_s=759.7 steps_per_sec=16.848 loss_pre=2.4116 loss_post=2.3866 fpm_loss=0.030116 gate=0.1875 desired=0.2229 util=-0.006144
+step=12900 elapsed_s=763.3 steps_per_sec=16.901 loss_pre=2.6065 loss_post=2.5933 fpm_loss=0.020393 gate=0.1873 desired=0.2166 util=-0.008586
+step=13000 elapsed_s=766.8 steps_per_sec=16.954 loss_pre=2.3930 loss_post=2.3807 fpm_loss=0.017889 gate=0.1881 desired=0.2344 util=+0.001724
+val step=13000 steps=872 loss_pre=2.5929 loss_train=2.5929 loss_post=2.5929 ppl_proxy=13.3682
+  fpm: utility=+0.001076 replay_utility=+0.001076 retrieval_loss=0.022658 retrieval_sim=0.763550
+  pipeline: projected=64.000 candidates=62.651 feed_entries=512.000 consolidated=84.583 accept_rate=0.979 cons_rate=0.165
+  gate: mean=0.184724 learned_cap=0.199998 desired=0.179756 policy_reward=+0.000000
+  signal: raw_op_rms=0.202130 op_rms=0.159570 gated_rms=0.029465 memory_rms=0.087656 target_cosine=+0.377796 useful_high_mse=0.566514
+  functional: loss_gain=+0.001076 usefulness=0.000000 residual_rms=0.072610 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.592882 alpha_entity=-0.499717
+step=13100 elapsed_s=782.2 steps_per_sec=16.748 loss_pre=2.5723 loss_post=2.5578 fpm_loss=0.025194 gate=0.1874 desired=0.2165 util=+0.012019
+step=13200 elapsed_s=785.7 steps_per_sec=16.800 loss_pre=2.4177 loss_post=2.3848 fpm_loss=0.022728 gate=0.1879 desired=0.2293 util=+0.001423
+step=13300 elapsed_s=789.2 steps_per_sec=16.852 loss_pre=2.4841 loss_post=2.4602 fpm_loss=0.014011 gate=0.1881 desired=0.2101 util=+0.002235
+step=13400 elapsed_s=792.7 steps_per_sec=16.903 loss_pre=2.3434 loss_post=2.3193 fpm_loss=0.022752 gate=0.1880 desired=0.2350 util=-0.003717
+step=13500 elapsed_s=796.2 steps_per_sec=16.955 loss_pre=2.5608 loss_post=2.5389 fpm_loss=0.026503 gate=0.1884 desired=0.2360 util=+0.002949
+val step=13500 steps=872 loss_pre=2.5783 loss_train=2.5783 loss_post=2.5783 ppl_proxy=13.1745
+  fpm: utility=+0.000236 replay_utility=+0.000236 retrieval_loss=0.024118 retrieval_sim=0.769091
+  pipeline: projected=64.000 candidates=62.633 feed_entries=512.000 consolidated=84.916 accept_rate=0.979 cons_rate=0.166
+  gate: mean=0.184850 learned_cap=0.199998 desired=0.180674 policy_reward=+0.000000
+  signal: raw_op_rms=0.205619 op_rms=0.165167 gated_rms=0.030523 memory_rms=0.094882 target_cosine=+0.389769 useful_high_mse=0.500000
+  functional: loss_gain=+0.000236 usefulness=0.000000 residual_rms=0.079869 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.578283 alpha_entity=-0.497779
+step=13600 elapsed_s=811.6 steps_per_sec=16.757 loss_pre=2.6710 loss_post=2.6585 fpm_loss=0.017490 gate=0.1878 desired=0.2119 util=-0.000497
+step=13700 elapsed_s=815.1 steps_per_sec=16.807 loss_pre=2.7158 loss_post=2.6984 fpm_loss=0.019576 gate=0.1877 desired=0.2158 util=-0.002495
+step=13800 elapsed_s=818.9 steps_per_sec=16.853 loss_pre=2.5556 loss_post=2.5430 fpm_loss=0.026194 gate=0.1870 desired=0.2155 util=+0.001078
+step=13900 elapsed_s=822.4 steps_per_sec=16.902 loss_pre=2.3030 loss_post=2.2820 fpm_loss=0.031257 gate=0.1881 desired=0.2178 util=+0.002175
+step=14000 elapsed_s=825.9 steps_per_sec=16.951 loss_pre=2.3441 loss_post=2.3298 fpm_loss=0.014339 gate=0.1881 desired=0.2273 util=-0.004267
+val step=14000 steps=872 loss_pre=2.5773 loss_train=2.5773 loss_post=2.5773 ppl_proxy=13.1614
+  fpm: utility=+0.001037 replay_utility=+0.001037 retrieval_loss=0.021805 retrieval_sim=0.762627
+  pipeline: projected=64.000 candidates=62.467 feed_entries=512.000 consolidated=82.703 accept_rate=0.976 cons_rate=0.162
+  gate: mean=0.184617 learned_cap=0.199998 desired=0.178671 policy_reward=+0.000000
+  signal: raw_op_rms=0.197009 op_rms=0.156079 gated_rms=0.028804 memory_rms=0.083297 target_cosine=+0.362079 useful_high_mse=0.573394
+  functional: loss_gain=+0.001037 usefulness=0.000000 residual_rms=0.071552 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.577291 alpha_entity=-0.500000
+step=14100 elapsed_s=841.6 steps_per_sec=16.754 loss_pre=2.3038 loss_post=2.2883 fpm_loss=0.015486 gate=0.1878 desired=0.2340 util=-0.001263
+step=14200 elapsed_s=845.1 steps_per_sec=16.802 loss_pre=2.2876 loss_post=2.2720 fpm_loss=0.018011 gate=0.1880 desired=0.2293 util=+0.000367
+step=14300 elapsed_s=848.6 steps_per_sec=16.851 loss_pre=2.7231 loss_post=2.7035 fpm_loss=0.023832 gate=0.1872 desired=0.2207 util=+0.002483
+step=14400 elapsed_s=852.4 steps_per_sec=16.894 loss_pre=2.4824 loss_post=2.4552 fpm_loss=0.031161 gate=0.1875 desired=0.2163 util=-0.002005
+step=14500 elapsed_s=855.9 steps_per_sec=16.942 loss_pre=2.5552 loss_post=2.5346 fpm_loss=0.018539 gate=0.1880 desired=0.2320 util=+0.003014
+val step=14500 steps=872 loss_pre=2.5683 loss_train=2.5683 loss_post=2.5683 ppl_proxy=13.0434
+  fpm: utility=+0.000190 replay_utility=+0.000190 retrieval_loss=0.019158 retrieval_sim=0.765443
+  pipeline: projected=64.000 candidates=62.100 feed_entries=512.000 consolidated=80.734 accept_rate=0.970 cons_rate=0.158
+  gate: mean=0.184537 learned_cap=0.199998 desired=0.178201 policy_reward=+0.000000
+  signal: raw_op_rms=0.186664 op_rms=0.144785 gated_rms=0.026701 memory_rms=0.073972 target_cosine=+0.331287 useful_high_mse=0.502294
+  functional: loss_gain=+0.000190 usefulness=0.000000 residual_rms=0.061309 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.568285 alpha_entity=-0.498634
+step=14600 elapsed_s=871.2 steps_per_sec=16.758 loss_pre=2.4714 loss_post=2.4456 fpm_loss=0.018380 gate=0.1888 desired=0.2370 util=+0.001106
+step=14700 elapsed_s=874.9 steps_per_sec=16.801 loss_pre=2.2177 loss_post=2.2063 fpm_loss=0.013937 gate=0.1877 desired=0.2335 util=-0.000591
+step=14800 elapsed_s=878.5 steps_per_sec=16.846 loss_pre=2.3954 loss_post=2.3823 fpm_loss=0.013355 gate=0.1877 desired=0.2190 util=+0.001504
+step=14900 elapsed_s=882.1 steps_per_sec=16.892 loss_pre=2.4912 loss_post=2.4744 fpm_loss=0.019220 gate=0.1878 desired=0.2167 util=+0.006965
+step=15000 elapsed_s=885.6 steps_per_sec=16.937 loss_pre=2.5043 loss_post=2.4917 fpm_loss=0.009874 gate=0.1876 desired=0.2176 util=+0.003458
+val step=15000 steps=872 loss_pre=2.5556 loss_train=2.5556 loss_post=2.5556 ppl_proxy=12.8787
+  fpm: utility=+0.000344 replay_utility=+0.000344 retrieval_loss=0.019334 retrieval_sim=0.765676
+  pipeline: projected=64.000 candidates=62.016 feed_entries=512.000 consolidated=81.227 accept_rate=0.969 cons_rate=0.159
+  gate: mean=0.184513 learned_cap=0.199998 desired=0.177898 policy_reward=+0.000000
+  signal: raw_op_rms=0.188219 op_rms=0.146233 gated_rms=0.026971 memory_rms=0.075119 target_cosine=+0.345588 useful_high_mse=0.513761
+  functional: loss_gain=+0.000344 usefulness=0.000000 residual_rms=0.062415 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.555576 alpha_entity=-0.500000
+step=15100 elapsed_s=901.3 steps_per_sec=16.754 loss_pre=2.5711 loss_post=2.5564 fpm_loss=0.018064 gate=0.1878 desired=0.2225 util=+0.009300
+step=15200 elapsed_s=904.8 steps_per_sec=16.799 loss_pre=2.5219 loss_post=2.5064 fpm_loss=0.027042 gate=0.1880 desired=0.2134 util=+0.001680
+step=15300 elapsed_s=908.4 steps_per_sec=16.842 loss_pre=2.5318 loss_post=2.5119 fpm_loss=0.024198 gate=0.1885 desired=0.2306 util=+0.008015
+step=15400 elapsed_s=912.0 steps_per_sec=16.887 loss_pre=2.5800 loss_post=2.5642 fpm_loss=0.023229 gate=0.1874 desired=0.2206 util=+0.000572
+step=15500 elapsed_s=915.6 steps_per_sec=16.929 loss_pre=2.4318 loss_post=2.4119 fpm_loss=0.017594 gate=0.1879 desired=0.2276 util=+0.000649
+val step=15500 steps=872 loss_pre=2.5524 loss_train=2.5524 loss_post=2.5524 ppl_proxy=12.8380
+  fpm: utility=+0.000371 replay_utility=+0.000371 retrieval_loss=0.021528 retrieval_sim=0.767877
+  pipeline: projected=64.000 candidates=62.205 feed_entries=512.000 consolidated=82.368 accept_rate=0.972 cons_rate=0.161
+  gate: mean=0.184703 learned_cap=0.199998 desired=0.179633 policy_reward=+0.000000
+  signal: raw_op_rms=0.196633 op_rms=0.155826 gated_rms=0.028765 memory_rms=0.087306 target_cosine=+0.381040 useful_high_mse=0.518349
+  functional: loss_gain=+0.000371 usefulness=0.000000 residual_rms=0.074100 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.552408 alpha_entity=-0.499078
+step=15600 elapsed_s=931.0 steps_per_sec=16.757 loss_pre=2.4901 loss_post=2.4777 fpm_loss=0.024125 gate=0.1877 desired=0.2207 util=-0.009513
+step=15700 elapsed_s=934.5 steps_per_sec=16.801 loss_pre=2.7110 loss_post=2.7005 fpm_loss=0.031485 gate=0.1881 desired=0.2185 util=+0.005325
+step=15800 elapsed_s=938.0 steps_per_sec=16.844 loss_pre=2.1972 loss_post=2.1810 fpm_loss=0.022664 gate=0.1871 desired=0.2179 util=-0.002308
+step=15900 elapsed_s=941.5 steps_per_sec=16.888 loss_pre=2.6891 loss_post=2.6708 fpm_loss=0.025476 gate=0.1884 desired=0.2091 util=+0.008662
+step=16000 elapsed_s=945.0 steps_per_sec=16.931 loss_pre=2.6174 loss_post=2.5994 fpm_loss=0.025625 gate=0.1872 desired=0.2082 util=+0.012785
+val step=16000 steps=872 loss_pre=2.5397 loss_train=2.5397 loss_post=2.5397 ppl_proxy=12.6758
+  fpm: utility=+0.000665 replay_utility=+0.000665 retrieval_loss=0.019524 retrieval_sim=0.765884
+  pipeline: projected=64.000 candidates=61.823 feed_entries=512.000 consolidated=79.727 accept_rate=0.966 cons_rate=0.156
+  gate: mean=0.184671 learned_cap=0.199998 desired=0.179541 policy_reward=+0.000000
+  signal: raw_op_rms=0.187815 op_rms=0.147243 gated_rms=0.027170 memory_rms=0.078083 target_cosine=+0.355665 useful_high_mse=0.534404
+  functional: loss_gain=+0.000665 usefulness=0.000000 residual_rms=0.065392 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.539698 alpha_entity=-0.497134
+train_summary steps=16000 loss_pre=2.6924 loss_train=2.6924 loss_post=2.6662 ppl_proxy=14.3846
+  fpm: utility=+0.000127 replay_utility=+0.000127 retrieval_loss=0.030487 retrieval_sim=0.811054
+  pipeline: projected=64.000 candidates=63.074 feed_entries=509.995 consolidated=93.796 accept_rate=0.986 cons_rate=0.184
+  gate: mean=0.186907 learned_cap=0.244166 desired=0.217320 policy_reward=+0.008068
+  signal: raw_op_rms=0.276496 op_rms=0.185514 gated_rms=0.034585 memory_rms=0.098398 target_cosine=+0.458351 useful_high_mse=0.514188
+  functional: loss_gain=+0.000127 usefulness=0.000000 residual_rms=0.082171 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.691097 alpha_entity=-0.476756
+val_summary steps=872 loss_pre=2.5397 loss_train=2.5397 loss_post=2.5397 ppl_proxy=12.6758
+  fpm: utility=+0.000665 replay_utility=+0.000665 retrieval_loss=0.019524 retrieval_sim=0.765884
+  pipeline: projected=64.000 candidates=61.823 feed_entries=512.000 consolidated=79.727 accept_rate=0.966 cons_rate=0.156
+  gate: mean=0.184671 learned_cap=0.199998 desired=0.179541 policy_reward=+0.000000
+  signal: raw_op_rms=0.187815 op_rms=0.147243 gated_rms=0.027170 memory_rms=0.078083 target_cosine=+0.355665 useful_high_mse=0.534404
+  functional: loss_gain=+0.000665 usefulness=0.000000 residual_rms=0.065392 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.539698 alpha_entity=-0.497134
+best_val_summary step=16000 steps=872 loss_pre=2.5397 loss_train=2.5397 loss_post=2.5397 ppl_proxy=12.6758
+  fpm: utility=+0.000665 replay_utility=+0.000665 retrieval_loss=0.019524 retrieval_sim=0.765884
+  pipeline: projected=64.000 candidates=61.823 feed_entries=512.000 consolidated=79.727 accept_rate=0.966 cons_rate=0.156
+  gate: mean=0.184671 learned_cap=0.199998 desired=0.179541 policy_reward=+0.000000
+  signal: raw_op_rms=0.187815 op_rms=0.147243 gated_rms=0.027170 memory_rms=0.078083 target_cosine=+0.355665 useful_high_mse=0.534404
+  functional: loss_gain=+0.000665 usefulness=0.000000 residual_rms=0.065392 target_rms=0.000000 target_cosine=+0.000000 bootstrap_active=0.000
+  pre_deq: train_loss=2.539698 alpha_entity=-0.497134
+best_frozen_fpm_ablation_summary steps=872 loss_fpm_on=2.5398 ppl_fpm_on=12.6772 loss_fpm_off=2.5412 ppl_fpm_off=12.6943 delta_off_minus_on=+0.001348
+  frozen_fpm: gate_on=0.187552 gated_rms_on=0.029176 memory_rms_on=0.081312 retrieval_sim_on=0.767355
+final_frozen_fpm_ablation_summary steps=872 loss_fpm_on=2.5398 ppl_fpm_on=12.6772 loss_fpm_off=2.5412 ppl_fpm_off=12.6943 delta_off_minus_on=+0.001348
+  frozen_fpm: gate_on=0.187552 gated_rms_on=0.029176 memory_rms_on=0.081312 retrieval_sim_on=0.767355
