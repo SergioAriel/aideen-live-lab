@@ -1,0 +1,26 @@
+[package]
+name = "aideen-live-lab"
+version = "0.1.0"
+description = "AIDEEN Live Lab - Dashboard for AIDEEN experiment logs"
+authors = ["Sergio Solis"]
+edition = "2021"
+default-run = "aideen-live-lab"
+
+[lib]
+name = "aideen_live_lab_lib"
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+tauri-plugin-fs = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+uuid = { version = "1", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+regex = "1"
+rusqlite = { version = "0.31", features = ["bundled"] }
+tokio = { version = "1", features = ["full"] }
